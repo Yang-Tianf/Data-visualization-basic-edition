@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh_Cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>练习3</title>
+  <script src="./echarts.min.js"></script>
+</head>
+
+<body>
+  <div style="width: 600px;height: 400px;"></div>
+  <script>
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    const xData = ['HTML', 'CSS', 'JS', 'jQuery', 'Ajax', 'Vue']
+    const yData = [
+      {
+        type: 'line',
+        name: '赵峰',
+        data: [98, 90, 70, 48, 30, 29],
+        label: { show: true },
+        markPoint: {
+          data: [
+            { name: '最高分', type: 'max' },
+          ]
+        },
+        lineStyle: {
+          type: 'dashed'
+        },
+        smooth: true,
+        symbol: 'image://6c74b7fbdd539fc11d4f334c96f2b72780ad3e38.jpg',
+        symbolSize: 20,
+        stack: 'a',
+        areaStyle: {}
+      },
+      {
+        type: 'line',
+        name: '刘珍',
+        data: [87, 70, 74, 87, 84, 92],
+        label: { show: true },
+        markPoint: {
+          data: [
+            { name: '最高分', type: 'max' },
+          ]
+        },
+        smooth: true,
+        stack: 'a',
+        areaStyle: {}
+      },
+      {
+        type: 'line',
+        name: '杨怡',
+        data: [60, 64, 65, 78, 70, 82],
+        label: { show: true },
+        // 标记线 
+        markPoint: {
+          data: [
+            { name: '最高分', type: 'max' },
+          ]
+        },
+        lineStyle: {
+          type: 'dashed'
+        },
+        smooth: true,
+        stack: 'a',
+        areaStyle: {}
+      }
+    ]
+
+    const option = {
+      title: {
+        text: '各同学成绩趋势表',
+        left: 'center'
+      },
+      grid: { top: 80 },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow',
+          shadowStyle: {
+            color: 'rgba(178, 178, 178, 0.3)'
+          }
+        }
+      },
+      // 工具栏
+      toolbox: {
+        feature: {
+          dataZoom: {}, // 数据缩放 
+          magicType: { // 将图表在不同类型之间切换,图表的转换需要数据的支持 
+            type: ['bar', 'line']
+          },
+          saveAsImage: {}, // 将图表保存为图片 
+        }
+      },
+      legend: {
+        top: 34
+      },
+      xAxis: {
+        type: 'category',
+        data: xData,
+        // 紧挨边缘
+        boundaryGap: false
+      },
+      yAxis: {
+        type: 'value',
+        scale: true
+      },
+      series: yData
+    }
+
+    myEcharts.setOption(option)
+
+  </script>
+</body>
+
+</html>

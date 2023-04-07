@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh_Cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./echarts.min.js"></script>
+</head>
+
+<body>
+  <div style="width: 700px;height: 500px;"></div>
+  <script>
+    // 柱状图:  平面坐标系列【x, y】
+    //          关键词 ->  bar
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    const option = {
+      // 工具栏
+      toolbox: {
+        feature: {
+          saveAsImage: {}, // 将图表保存为图片 
+          dataView: {}, // 是否显示出原始数据 
+          restore: {}, // 还原图表 
+          dataZoom: {}, // 数据缩放 
+          magicType: { // 将图表在不同类型之间切换,图表的转换需要数据的支持 
+            type: ['bar', 'line']
+          }
+        }
+      },
+      // 提示框
+      tooltip: {
+        // 触发类型
+        trigger: 'axis',
+        // 触发时机
+        // triggerOn: 'click'
+        // 坐标轴显示类型
+        axisPointer: {
+          type: 'shadow',
+          shadowStyle: {
+            color: 'rgba(78, 78, 78, 0.3)'
+          }
+        },
+        // formatter: '{b}系列<br /> {a0}-{c0}分 <br /> {a1}-{c1}分 <br /> {a2}-{c2}分'
+        formatter(arg) {
+          const str = arg.map(item => `${item.marker} ${item.seriesName}-${item.value}分`)
+          return '成绩: <br/>' + str.join('<br/>')
+        }
+      },
+      // 图例
+      legend: {},
+      title: { text: '班级成绩分类表' },
+      xAxis: {
+        type: 'category',
+        data: ['A', 'B', 'C', 'D'],
+        // position: 'top',
+        // show: false
+      },
+      yAxis: {
+        type: 'value',
+        // position: 'right',
+        // show: false
+      },
+      dataZoom: [
+        { type: 'slider', xAxisIndex: 0 },
+        { type: 'slider', yAxisIndex: 0 },
+      ],
+      series: [
+        {
+          // 数据字段名
+          name: 'HZ2005',
+          type: 'bar',
+          // 为单个类别配置文字
+          data: [{ value: 20, label: { show: true } }, 8, 10, 4],
+          // 所以类型配置文字
+          label: { show: true, rotate: -90, color: 'red' },
+          // 标记最大值/最小值
+          markPoint: {
+            data: [
+              // 最大值
+              { name: '最大值', type: 'max' },
+              // 最小值
+              { name: '最小值', type: 'min' },
+            ]
+          },
+          // 标记线 平均值
+          markLine: {
+            data: [{ name: '平均值', type: 'average' }]
+          }
+        },
+        {
+          name: 'HZ2004',
+          type: 'bar',
+          data: [200, 100, 10, 40]
+        },
+        {
+          name: 'HZ2003',
+          type: 'bar',
+          data: [15, 23, 87, 18]
+        }
+      ]
+    }
+
+    myEcharts.setOption(option)
+  </script>
+</body>
+
+</html>

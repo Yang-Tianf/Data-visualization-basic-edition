@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 1. 引入echarts -->
+  <script src="./echarts.min.js"></script>
+</head>
+<body>
+  <!-- 2. 准备容器 绘制图表 [必须具有宽高]-->
+  <div style="width: 500px; height: 400px;"></div>
+
+  <script>
+    // 3. 初始化图表
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    // 4. 配置图表
+    const option = {
+      xAxis: {
+        type: 'category',
+        data: ['厂子', '晏子', '牛子', '珍子', '涛子', '杰子']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          type: 'bar',
+          data: [60, 99, 87, 19, 98, 72]
+        }
+      ]
+    }
+
+    // 5. 载入配置
+    myEcharts.setOption(option)
+  </script>
+</body>
+</html>

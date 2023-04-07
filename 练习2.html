@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./echarts.min.js"></script>
+</head>
+
+<body>
+  <div style="width: 700px;height: 500px;"></div>
+  <script>
+    // 柱状图:  平面坐标系列【x, y】
+    //          关键词 ->  bar
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    const xData = ['1月-3月', '3月-6月', '6月-9月', '10月-12月']
+    const yData = [
+      {
+        name: 'Apple',
+        type: 'bar',
+        data: [100, 40, { value: 180, itemStyle: { color: '#673ab7' }}, 120],
+        label: { show: true, position: 'top', fontSize: 14, color: 'red', rotate: 40, fontWeight: 700 },
+        markLine: {
+          data: [{ type: 'max', name: '最大值' }]
+        },
+      },
+      {
+        name: 'Huawei',
+        type: 'bar',
+        data: [30, { value: 199, itemStyle: { color: '#673ab7' } }, 180, 99],
+        label: { show: true, position: 'top', fontSize: 14, color: 'yellow', rotate: 40, fontWeight: 700 },
+        markLine: {
+          data: [{ type: 'max', name: '最大值' }]
+        }
+      },
+      {
+        name: 'Vivo',
+        type: 'bar',
+        data: [120, { value: 128, itemStyle: { color: '#673ab7' } }, 71, 123],
+        label: { show: true, position: 'top', fontSize: 14, color: 'green', rotate: 40, fontWeight: 700 },
+        markLine: {
+          data: [{ type: 'max', name: '最大值' }]
+        },
+        tooltip: {
+          backgroundColor: 'red'
+        }
+      },
+      {
+        name: 'Mi',
+        type: 'bar',
+        data: [111, 29, 88, { value: 130, itemStyle: { color: '#673ab7' }}],
+        label: { show: true, position: 'top', fontSize: 14, color: 'green', rotate: 40, fontWeight: 700 },
+        markLine: {
+          data: [{ type: 'max', name: '最大值' }]
+        },
+        tooltip: {
+          backgroundColor: 'red'
+        }
+      },
+    ]
+
+    const option = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow',
+          shadowStyle: {
+            color: 'rgba(78, 78, 78, 1)'
+          }
+        }
+      },
+      // 图表坐标系
+      grid: { top: 70 },
+      // 图例
+      legend: {
+        top: 'bottom'
+      },
+      title: { text: '手机年度销售榜', subtext: '来源淘宝', left: 'center' },
+      xAxis: {
+        type: 'category',
+        data: xData,
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: yData
+    }
+
+    myEcharts.setOption(option)
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./echarts.min.js"></script>
+</head>
+
+<body>
+  <div style="width: 700px;height: 500px;"></div>
+  <script>
+    // 柱状图:  平面坐标系列【x, y】
+    //          关键词 ->  bar
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    const xData = ['iPhone', 'Huawei', 'Mi', 'Vivo', 'Oppo', 'iQoo', 'onePlus']
+    const yData = [
+      {
+        name: '京东',
+        type: 'bar',
+        data: [1000, 900, 2000, 1021, 1334, 1298, 100, 289],
+        label: { show: true, position: 'top', fontSize: 8, color: 'red' },
+        markPoint: {
+          data: [{ type: 'max', name: '最大值', itemStyle: { opacity: 0.3 } }]
+        },
+      },
+      {
+        name: '淘宝',
+        type: 'bar',
+        data: [721, 1820, 200, 2321, 304, 198, 520, 89],
+        label: { show: true, position: 'top', fontSize: 8, color: 'yellow' },
+        markPoint: {
+          data: [{ type: 'max', name: '最大值' }]
+        }
+      },
+      {
+        name: '拼多多',
+        type: 'bar',
+        data: [919, 200, 1200, 999, 134, 398, 40, 29],
+        label: { show: true, position: 'top', fontSize: 8, color: 'green' },
+        markPoint: {
+          data: [{ type: 'max', name: '最大值' }]
+        },
+        tooltip: {
+          backgroundColor: 'red'
+        }
+      },
+    ]
+
+    const option = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      // 图例
+      legend: {},
+      title: { text: '手机各大平台销量表', borderWidth: 2, borderColor: 'red', borderType: 'solid' },
+      xAxis: {
+        type: 'category',
+        data: xData,
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: yData
+    }
+
+    myEcharts.setOption(option)
+  </script>
+</body>
+
+</html>

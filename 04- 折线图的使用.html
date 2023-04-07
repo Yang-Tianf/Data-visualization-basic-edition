@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>折线图的使用</title>
+  <script src="./echarts.min.js"></script>
+</head>
+
+<body>
+  <div style="width: 600px;height: 400px;"></div>
+  <script>
+    // 折线图:   平面直角坐标系
+    //    关键词-line
+    // 常用场景： 描述数据的变化  
+
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+
+
+    // const xData = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+    const yData = [
+      {
+        // name: '秘鲁',
+        type: 'line',
+        // data: [1000, 1000, 1100, 1200, 1000, 990, 999, 1000, 1200, 1000, 1000, 1200],
+        // 标记
+        markPoint: {
+          data: [
+            { name: '最大值', type: 'max' },
+            { name: '最小值', type: 'min' },
+          ]
+        },
+        // 标记线 
+        markLine: {
+          data: [
+            { name: '平均值', type: 'average' },
+          ]
+        },
+        // 区间标记
+        // markArea: {
+        //   data: [
+        //     [{ xAxis: '4月' }, { xAxis: '7月' }],
+        //     [{ xAxis: '10月' }, { xAxis: '12月' }],
+        //   ]
+        // },
+        // 平滑线条
+        smooth: true,
+        // 线条样式
+        lineStyle: {
+          color: 'blue',
+          type: 'dotted',
+          cap: 'round'
+        },
+        // 数据样式
+        itemStyle: {
+          color: 'red'
+        },
+        // 填充样式
+        areaStyle: {
+          color: 'green'
+        }
+      },
+    ]
+
+    const option = {
+      dataset: {
+        source: [
+          ['category', '秘鲁'],
+          ['1月', 1000],
+          ['2月', 2000],
+          ['3月', 1200],
+          ['4月', 1300],
+          ['5月', 1100],
+          ['6月', 1400],
+          ['7月', 900]
+        ]
+      },
+      // grid: {
+      //   show: true,
+      //   top: 24,
+      //   width: 100
+      // },
+      legend: {},
+      xAxis: {
+        type: 'category',
+        // data: xData,
+        // 紧挨边缘
+        boundaryGap: false
+      },
+      yAxis: {
+        type: 'value',
+        scale: true
+      },
+      series: yData
+    }
+
+    myEcharts.setOption(option)
+  </script>
+</body>
+
+</html>

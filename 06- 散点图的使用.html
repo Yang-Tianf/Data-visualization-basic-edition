@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./echarts.min.js"></script>
+  <script src="./data.js"></script>
+</head>
+
+<body>
+  <div style="width: 600px; height: 500px;"></div>
+  <script>
+    // 散点图： scatter
+    //    使用场景 ->  推断一系列数据的关系图
+    //    身高 - 年龄
+    //    160  - 18
+    //    170  - 20
+    //    150  - 30
+
+    //    体重 - 身体
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    // 将data数据转为二维数组
+    const datas = data.map(item => [item.weight, item.height])
+
+    const option = {
+      tooltip: {},
+      xAxis: { scale: true },
+      yAxis: { scale: true },
+      series: [
+        {
+          type: 'scatter',
+          data: datas,
+          // 根据BMI数值 自动调整【越大越粗  越小越细】
+          symbolSize(arg) {
+            // 体重 / 身高 * 2
+            const [w, h] = arg
+            const BMI = w / (h / 100) ** 2
+            return BMI / 2
+          },
+          itemStyle: {
+            color(arg) {
+              const [w, h] = arg.data
+              const BMI = w / (h / 100) ** 2
+              return BMI > 25 ? 'red' : 'green'
+            }
+          }
+        },
+        {
+          type: 'effectScatter',
+          data: datas.slice(10, 30)
+        }
+      ]
+    }
+
+    myEcharts.setOption(option)
+
+
+  </script>
+</body>
+
+</html>

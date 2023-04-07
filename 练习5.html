@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>地图图表的使用</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <script src="./echarts.min.js"></script>
+  <script src="./jquery.min.js"></script>
+</head>
+
+<body>
+  <div style="width: 100vw; height: 100vh;"></div>
+  <script>
+    const myEharts = echarts.init(document.querySelector('div'))
+
+    // 湖南经济数据
+    const data = [
+      { name: '湖南', value: 1000 },
+      { name: '北京', value: 1100 },
+      { name: '上海', value: 200 },
+      { name: '湖北', value: 1200 },
+      { name: '广东', value: 900 },
+      { name: '新疆', value: 1100 },
+    ]
+
+    const sData = [
+      [112.88995887931826, 28.2207514711451, 100],
+      [112.91775192913057, 28.249231136765772, 10],
+      [112.6877471416855, 28.49324025438572, 1],
+      [111.59244, 26.46098, 90]
+    ]
+
+
+    // 1. 使用Ajax将中国地址JSON数据 加载 
+    // Open In Default Browser ctrl + 1
+    $.get('./矢量地图数据/china.json').then(res => {
+      // 2. 将中国地图注册到图表中
+      echarts.registerMap('china', res)
+      // 3. 使用地图
+      const option = {
+        // backgroundColor: 'black',
+        // 地图属性
+        legend: {},
+        geo: {
+          map: 'china',
+          itemStyle: {
+            borderWidth: 4, //设置外层边框
+            borderColor: '#f8911b',
+          },
+        },
+        // 数据
+        series: [
+          {
+            type: 'map',
+            map: 'china',
+            data,
+            label: {
+              show: true,
+              fontSize: 10,
+              fontWeight: 700
+            },
+            itemStyle: {
+              borderColor: '#333',
+              borderWidth: 1
+            }
+          },
+          { type: 'scatter', data: sData, coordinateSystem: 'geo', },
+          { type: 'effectScatter', data: [[111.59244, 26.46098, 90]], coordinateSystem: 'geo', }
+        ],
+        // 热力图
+        visualMap: {
+          // type: 'piecewise',
+          // formatter: '1',
+          show: false,
+          min: 0,
+          max: 1200,
+          inRange: {
+            color: ['#FFF', '#CCC', '#ABC', 'red'],
+          },
+          calculable: false // 是否显示拖拽用的手柄（手柄能拖拽调整选中范围） 
+        }
+      }
+      // 4. 设置配置
+      myEharts.setOption(option)
+    })
+  </script>
+</body>
+
+</html>

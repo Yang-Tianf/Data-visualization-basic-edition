@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./echarts.min.js"></script>
+</head>
+<body>
+  <div style="width: 600px; height: 500px;"></div>
+  
+  <script>
+    // 雷达图:   显示数据 各位维度之间的关系
+
+    // 比较 苹果与小米 性能
+    // 续航  价格  屏幕  系统   处理器
+
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    // 1. 定义各个维度
+    const xData = [
+      { name: '续航', max: 100 },
+      { name: '价格', max: 100 },
+      { name: '屏幕', max: 100 },
+      { name: '系统', max: 100 },
+      { name: '处理器', max: 100 },
+    ]
+
+    // 2. 定义数据
+    const mi = [100, 100, 100, 100, 100]
+    const apple = [60, 50, 100, 100, 90]
+
+    // 3. 填入配置
+    const option = {
+      tooltip: {},
+      legend: {},
+      // 载入维度
+      radar: [{ indicator: xData, shape: 'circle'}],
+      // 载入数据
+      series: [
+        {
+          radarIndex: 0,
+          type: 'radar',
+          label: { show: true },
+          areaStyle: {},
+          data: [
+            { name: '小米', value: mi},
+            { name: '苹果', value: apple},
+          ]
+        }
+      ]
+    }
+
+    myEcharts.setOption(option)
+
+  </script>
+</body>
+</html>

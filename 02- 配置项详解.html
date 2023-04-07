@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 1. 引入echarts -->
+  <script src="./echarts.min.js"></script>
+</head>
+<body>
+  <!-- 2. 准备容器 绘制图表 [必须具有宽高]-->
+  <div style="width: 500px; height: 400px;"></div>
+
+  <script>
+    // 3. 初始化图表
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    // 4. 配置图表
+    const option = {
+      // 标题
+      title: {
+        text: '班级成绩表',
+        link: 'http://baidu.com',
+        textStyle: {
+          color: 'red',
+          fontSize: 12,
+          textBorderWidth: 20,
+          textBorderColor: 'green'
+        },
+        left: 120,
+        top: 'bottom'
+      },
+      // 图表x轴
+      xAxis: {
+        // 类型： 通过配置不同类型决定该轴的作用 【category类目  value值】
+        type: 'category',
+        data: ['厂子', '晏子', '牛子', '珍子', '涛子', '杰子']
+      },
+      // 图表y轴
+      yAxis: {
+        type: 'value'
+      },
+      // 图表数据列表: 【一个对象表示一组数据】
+      series: [
+        {
+          // 图表类型
+          type: 'bar',
+          // 数据源【会与类名一一对应】
+          data: [60, 99, 87, 19, 98, 72]
+        },
+        {
+          type: 'bar',
+          data: [160, 199, 187, 119, 198, 172]
+        },
+        {
+          type: 'bar',
+          data: [120, 129, 137, 119, 13, 12]
+        }
+      ]
+    }
+
+    // 5. 载入配置
+    myEcharts.setOption(option)
+  </script>
+</body>
+</html>

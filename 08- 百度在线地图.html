@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 导入百度地图JSAPI -->
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=Mo8u15hGUkEIQ7nRtBqKMtseKviINxxY"></script>
+  <!-- 导入Echarts -->
+  <script src="./echarts.min.js"></script>
+  <!-- 导入百度地图图表 -->
+  <script src="./bmap.min.js"></script>
+</head>
+
+<body>
+  <div style="width: 600px; height: 500px; position: relative;"></div>
+
+  <script>
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    const option = {
+      // 加载 bmap 组件
+      bmap: {
+        // 百度地图中心经纬度
+        center: [112.88996424373629, 28.22089327390173],
+        // 百度地图缩放
+        zoom: 14,
+        // 是否开启拖拽缩放，可以只设置 'scale' 或者 'move'
+        roam: true,
+        // 百度地图的自定义样式，见 http://developer.baidu.com/map/jsdevelop-11.htm
+        mapStyle: {}
+      },
+      series: [
+        {
+          type: 'scatter',
+          // 使用百度地图坐标系
+          coordinateSystem: 'bmap',
+          data: [[112.88995887931826, 28.2207514711451, 10]],
+          symbolSize: 100
+        },
+        {
+          type: 'effectScatter',
+          // 使用百度地图坐标系
+          coordinateSystem: 'bmap',
+          data: [[111.88995887931826, 28.2207514711451, 10]],
+          symbolSize: 100
+        }
+      ]
+    }
+
+    myEcharts.setOption(option)
+
+    // 获取百度地图实例，使用百度地图自带的控件
+    var bmap = chart.getModel().getComponent('bmap').getBMap();
+    bmap.addControl(new BMap.MapTypeControl());
+  </script>
+</body>
+
+</html>

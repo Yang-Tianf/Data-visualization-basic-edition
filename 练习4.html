@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh_Cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>练习4</title>
+  <script src="./echarts.min.js"></script>
+</head>
+
+<body>
+  <div style="width: 600px;height: 400px;"></div>
+  <script>
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    const xData = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+    const yData = [
+      {
+        type: 'line',
+        name: '长沙',
+        data: [33, 34, 35, 33, 35, 36, 38],
+        // 标记线 
+        markLine: {
+          data: [
+            { name: '平均温度', type: 'average' },
+          ]
+        },
+      },
+      {
+        type: 'line',
+        name: '北京',
+        data: [14, 18, 19, 16, 17, 12, 10],
+        // 标记线 
+        markLine: {
+          data: [
+            { name: '平均温度', type: 'average' },
+          ]
+        },
+      }
+    ]
+
+    const option = {
+      title: {
+        text: '城市一周天气预报',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'axis',
+        formatter(arg) {
+          const str = arg.map(item => `${item.marker} ${item.seriesName} <span style="color: red;">${item.value}</span> °C`)
+          return arg[0].name + '<br/>' + str.join('<br/>')
+        },
+        axisPointer: {
+          type: 'shadow',
+          shadowStyle: {
+            color: 'rgba(178, 178, 178, 0.3)'
+          }
+        }
+      },
+      grid: { top: 80 },
+      // 工具栏
+      toolbox: {
+        feature: {
+          dataZoom: {}, // 数据缩放 
+          magicType: { // 将图表在不同类型之间切换,图表的转换需要数据的支持 
+            type: ['bar', 'line']
+          },
+          saveAsImage: { }, // 将图表保存为图片 
+        }
+      },
+      legend: {
+        top: 34
+      },
+      xAxis: {
+        type: 'category',
+        data: xData,
+        // 紧挨边缘
+        boundaryGap: false
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          formatter: '{value} °C'
+        }
+      },
+      series: yData
+    }
+
+    myEcharts.setOption(option)
+
+  </script>
+</body>
+
+</html>

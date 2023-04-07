@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./echarts.min.js"></script>
+</head>
+
+<body>
+  <div style="width: 800px; height: 600px;"></div>
+
+  <script>
+    // 饼图:  pie
+    //    使用场景： 显示各段数据占比情况 （比例关系）
+
+    // 双11 成交额的分配情况:  1000w  家具： 500w  日用品： 200w  数码： 300w
+
+    // 智能手机市场占比分额 :  苹果 800 华为 400 小米1200 vivo200 其他700
+    const myEcharts = echarts.init(document.querySelector('div'))
+
+    // 饼图的数据结构 需要key-value
+    const data = [
+      { name: 'ViVo', value: 200 },
+      { name: '华为', value: 400 },
+      { name: '其他', value: 700 },
+      { name: '苹果', value: 800 },
+      { name: '小米', value: 1200 },
+    ].reverse()
+
+    const option = {
+      legend: {},
+      tooltip: {},
+      series: [
+        {
+          name: 'a',
+          type: 'pie',
+          data,
+          // 指定外圆半径
+          // radius: 200,
+          roseType: 'area',
+          radius: ['10%', '80%'],
+          center: ['50%', '50%'],
+          itemStyle: {
+            borderRadius: 8
+          },
+          label: {
+            show: true,
+            formatter(arg) {
+              return `${arg.name} - ${arg.value} - ${arg.percent}%`
+              console.log(arg)
+            }
+          }
+        }
+      ]
+    }
+
+    myEcharts.setOption(option)
+
+  </script>
+</body>
+
+</html>
